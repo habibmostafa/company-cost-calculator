@@ -4,8 +4,7 @@
 Simple app that calculates the cost of a company by the salaries of its employees. Single page application form for inputting employee data and another form to get company cost of a selected company.
 
 ## Stories to be completed:
-* configure graphql with mongo
-* create document and collection
+* create front end reat app.
 * create single page with text fields on the left and submit button
 * implement display on the right from database 
 * implement search and display of company costs
@@ -16,8 +15,9 @@ Simple app that calculates the cost of a company by the salaries of its employee
 * install homebrew and mongodb, nodejs locally
 * initialize app with npm, graphql-yoga, node, etc.
 * configure graphql server
-
-
-
+* configure graphql with mongo
+* update npm
+* db level create and read functionality.
+* db level update and delete functionality based on employee id.
 
 
