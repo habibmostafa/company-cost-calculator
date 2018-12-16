@@ -1,8 +1,9 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
+import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import gql from "graphql-tag";
 import { graphql, compose } from "react-apollo";
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
+import Form from "./form";
+import Table from "./table";
 
 const EmployeesQuery = gql`
 {
@@ -15,6 +16,7 @@ const EmployeesQuery = gql`
     salary
   }
 }`;
+
 const CreateEmployeeMutation = gql`
   mutation(
     $employeeId: Int!, 
@@ -40,68 +42,17 @@ const CreateEmployeeMutation = gql`
   }
 `;
 
-
 class App extends Component {
-  state = {
-    employeeId: 0,
-    firstName: "",
-    lastName: "",
-    address: "",
-    company: "",
-    salary: 0
-  };
 
-  handleEmployeeIdChange = e => {
-    const newEmployeeId = parseInt(e.target.value);
-    this.setState({
-      employeeId: newEmployeeId,
-    });
-  };
-
-  handleFirstNameChange = e => {
-    const newFirstName = e.target.value;
-    this.setState({
-        firstName: newFirstName,
-    });
-  };
-
-  handleLastNameChange = e => {
-    const newLastName = e.target.value;
-    this.setState({
-        lastName: newLastName,
-    });
-  };
-
-  handleAddressChange = e => {
-    const newAddress = e.target.value;
-    this.setState({
-        address: newAddress,
-    });
-  };
-
-  handleCompanyChange = e => {
-    const newCompany = e.target.value;
-    this.setState({
-        company: newCompany,
-    });
-  };
-  
-  handleSalaryChange = e => {
-    const newSalary = parseInt(e.target.value);
-    this.setState({
-        salary: newSalary,
-    });
-  };
-  
   createEmployee = async employee => {
     await this.props.createEmployee({
       variables: {
-        employeeId: employee.employeeId,
+        employeeId: parseInt(employee.employeeId),
         firstName: employee.firstName,
         lastName: employee.lastName,
         address: employee.address,
         company: employee.company,
-        salary: employee.salary
+        salary: parseInt(employee.salary)
       },
       update: (store, { data: { createEmployee } }) => {
         // Read the data from our cache for this query.
@@ -114,57 +65,31 @@ class App extends Component {
     });
   };
 
+  formCallback = (dataFromForm) => {
+    this.createEmployee(dataFromForm);
+    //console.log(dataFromForm);
+    
+    //console.log(this.state);
+  };
+
   render() {
-    const {data: {loading}} = this.props;
+    const {data: {loading, employees}} = this.props;
+
     if (loading) {
       return null;
     }
     return (
-      <div style={{ display: "flex" }}>
-        <div style={{ margin: "auto", width: 400 }}>
-            <TextField
-            onChange={this.handleEmployeeIdChange}
-            label="Employee Id"
-            margin="normal"
-            type="number"
-            fullWidth/>
-            <TextField
-            onChange={this.handleFirstNameChange}
-            label="First Name"
-            margin="normal"
-            fullWidth/>
-            <TextField
-            onChange={this.handleLastNameChange}
-            label="Last Name"
-            margin="normal"
-            fullWidth/>
-            <TextField
-            onChange={this.handleAddressChange}
-            label="Address"
-            margin="normal"
-            fullWidth/>
-            <TextField
-            onChange={this.handleCompanyChange}
-            label="Company"
-            margin="normal"
-            fullWidth/>
-            <TextField
-            onChange={this.handleSalaryChange}
-            label="Salary"
-            margin="normal"
-            type="number"
-            fullWidth/>
-            <Button variant="contained" type="submit" onClick={() => this.createEmployee(this.state)}>
-            Submit
-            </Button>
-          </div>
+      <MuiThemeProvider>
+        <div className="App">
+          <Form callbackFromApp={this.formCallback}/>
+          <Table employeesFromApp={employees} />
         </div>
+      </MuiThemeProvider>
     );
-      }
-    }
+  }
+}
 
 export default compose(
   graphql(CreateEmployeeMutation, { name: "createEmployee"}),
   graphql(EmployeesQuery)
 )(App);
-
