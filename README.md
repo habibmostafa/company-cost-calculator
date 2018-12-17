@@ -38,6 +38,19 @@ Implement effecient calculations.
 * Writing front and back-end tests
 * Pushing the GitHub repository to a cloud hosting provider
 
+## Demo (partioally deployed)
+
+This demo will only work if you have the server side hosted on localhost:4000.
+To do that:
+* clone this repo.
+* cd to server folder
+* node index.js
+
+Note that you might need to install some dependencies first.
+
+Use the graphql playground http://localhost:4000/ with the query reference below.
+Hosted on: https://habibmostafa.github.io/company-cost-calculator/ 
+
 ## Graphql Queries Reference
 {
   costOfCompany(company:"ibm")

@@ -29,3 +29,4 @@ Simple app that calculates the cost of a company by the salaries of its employee
 - create query for company cost calculation
 - implement search and display of company costs
 - beautify the front end and some form validation and some error handling
+- hosted to git hub pages client side only
