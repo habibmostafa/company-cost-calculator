@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import gql from "graphql-tag";
 import { graphql, compose } from "react-apollo";
-import Form from "./form";
+import EntryForm from "./entryForm";
+import CostForm from "./costForm";
 import Table from "./table";
 
 const EmployeesQuery = gql`
@@ -44,6 +45,10 @@ const CreateEmployeeMutation = gql`
 
 class App extends Component {
 
+  state = {
+    sum: ""
+  };
+
   createEmployee = async employee => {
     await this.props.createEmployee({
       variables: {
@@ -65,24 +70,38 @@ class App extends Component {
     });
   };
 
-  formCallback = (dataFromForm) => {
+  entryFormCallback = (dataFromForm) => {
     this.createEmployee(dataFromForm);
-    //console.log(dataFromForm);
+  };
+
+  costFormCallback = (dataFromForm) => {
+    const company = dataFromForm.company;
+    const employees = this.props.data.employees;
+    var sum = 0;
+    for (var key in employees) {
+      if (employees[key].company === company) sum += employees[key].salary;
+    }
     
-    //console.log(this.state);
+    this.setState({
+      sum: sum
+    });
+
   };
 
   render() {
     const {data: {loading, employees}} = this.props;
-
     if (loading) {
       return null;
     }
     return (
       <MuiThemeProvider>
         <div className="App">
-          <Form callbackFromApp={this.formCallback}/>
+          <EntryForm callbackFromApp={this.entryFormCallback}/>
           <Table employeesFromApp={employees} />
+          <br/>
+          <CostForm callbackFromApp={this.costFormCallback}/>
+          <br/>
+          {this.state.sum}
         </div>
       </MuiThemeProvider>
     );

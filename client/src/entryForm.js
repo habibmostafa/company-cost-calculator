@@ -2,7 +2,7 @@ import React from "react";
 import TextField from "material-ui/TextField";
 import Button from '@material-ui/core/Button';
 
-export default class Form extends React.Component {
+export default class EntryForm extends React.Component {
 state = {
     employeeId: "",
     firstName: "",
@@ -93,6 +93,7 @@ state = {
         hintText="Salary"
         label="Salary"
         margin="normal"
+        type="number"
         value={this.state.salary}
         onChange={e => this.change(e)}
         floatingLabelFixed

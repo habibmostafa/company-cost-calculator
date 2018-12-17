@@ -23,7 +23,8 @@ const Employee = mongoose.model("Employee", {
 
 const typeDefs = `
   type Query {
-    employees: [Employee]
+    employees: [Employee],
+    costOfCompany(company: String!): Int! 
   }
   type Employee {
     employeeId: Int!
@@ -55,7 +56,18 @@ const typeDefs = `
 
 const resolvers = {
   Query: {
-    employees: () => Employee.find()
+    employees: () => Employee.find(),
+    costOfCompany: async (
+      _,
+      {company}
+    ) => {
+      let sum = 0;
+      var matchingEmployees = await Employee.find({company : company});
+      for (var key in matchingEmployees) {
+        sum += matchingEmployees[key].salary;
+      }
+      return sum;
+    }
   },
   Mutation: {
     createEmployee: async (

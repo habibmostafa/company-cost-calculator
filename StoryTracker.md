@@ -4,8 +4,6 @@
 Simple app that calculates the cost of a company by the salaries of its employees. Single page application form for inputting employee data and another form to get company cost of a selected company.
 
 ## Stories to be completed:
-* create query for company cost calculation
-* implement search and display of company costs
 * add form validation and proper erroring out
 * add front end unit tests
 * add back end unit tests
@@ -25,4 +23,5 @@ Simple app that calculates the cost of a company by the salaries of its employee
 * create front end react app with basic read functionality to show employee first name
 * create single page with text fields and submit button with material ui
 * implement table for display only
-
+* create query for company cost calculation
+* implement search and display of company costs
