@@ -37,3 +37,48 @@ Implement effecient calculations.
 ## Extra
 * Writing front and back-end tests
 * Pushing the GitHub repository to a cloud hosting provider
+
+## Graphql Queries Reference
+{
+  costOfCompany(company:"ibm")
+}
+
+mutation {
+  removeEmployee(employeeId: 0)
+}
+
+mutation {
+  updateEmployee(
+    employeeId: 1007,
+    firstName:"mostafa", 
+    lastName: "habib", 
+    address:"somewhere",
+    company: "ibm",
+  	salary: 120000)
+}
+
+{
+  employees {
+    employeeId
+    firstName
+    lastName
+    address
+    company
+    salary
+  }
+}
+
+mutation {
+  createEmployee(
+    employeeId: 1007,
+    firstName:"mostafa", 
+    lastName: "habib", 
+    address:"somewhere",
+    company: "ibm",
+  	salary: 120000) {
+    employeeId
+    firstName
+    salary
+  }
+}
+
