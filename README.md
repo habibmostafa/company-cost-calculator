@@ -44,8 +44,7 @@ This demo will only work if you have the server side hosted on localhost:4000.
 To do that:
 * clone this repo.
 * cd to server folder
-* install brew, or if you have brew already, update it, install mongodb, then start mongodb service
-* Run the following commands in your terminal:
+* To install brew, or if you have brew already, update it, install mongodb, then start mongodb service run the following commands in your terminal:
    * /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
    * brew update
    * brew install mongodb
