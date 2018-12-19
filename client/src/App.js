@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import gql from "graphql-tag";
-import { graphql, compose } from "react-apollo";
+import { graphql, compose, ApolloConsumer } from "react-apollo";
 import EntryForm from "./entryForm";
 import Table from "./table";
 import Grid from "@material-ui/core/Grid";
@@ -20,6 +20,12 @@ const EmployeesQuery = gql`
       salary
     }
   }
+`;
+
+const CostQuery = gql`
+query ($company: String!) {
+  costOfCompany(company: $company)
+}
 `;
 
 const CreateEmployeeMutation = gql`
@@ -51,8 +57,7 @@ const CreateEmployeeMutation = gql`
 
 class App extends Component {
   state = {
-    company: "",
-    sum: ""
+    company: ""
   };
 
   createEmployee = async employee => {
@@ -91,45 +96,26 @@ class App extends Component {
     if (e.key === 'Enter') {
       e.preventDefault();
       //console.log('do validate: ' + e.target.name);
-      this.costFunction();
     }
   }
 
   onSubmit = e => {
     e.preventDefault();
-    this.costFunction();
     // clear form
     this.setState({
       company: ""
     });
   };
 
-  costFunction = () => {
-    const company = this.state.company;
-    const employees = this.props.data.employees;
-    var sum = 0;
-    for (var key in employees) {
-      if (employees[key].company === company) sum += employees[key].salary;
-    }
-
-    if (company != null && company.length > 0) {
-      this.setState({
-        sum: "of " + company + " is " + sum
-      });
-    } else {
-      this.setState({
-        sum: ""
-      });
-    }
-  };
+  onCostFetched = cost => this.setState(() => ({ cost }));
 
   render() {
-    const {
-      data: { loading, employees }
-    } = this.props;
-    if (loading) {
+    
+    let { data } = this.props
+    if (data.loading) {
       return null;
     }
+
     return (
       <MuiThemeProvider>
         <div className="App">
@@ -162,10 +148,12 @@ class App extends Component {
                   paddingBottom: 10
                 }}
               >
-              Cost {this.state.sum}
-              <br />
-                <form>
-                  <TextField
+              <ApolloConsumer>
+              {client => (
+              <div>
+                Cost {this.state.cost }
+                <br />
+                <TextField
                     name="company"
                     hintText="Company"
                     label="Company"
@@ -176,19 +164,27 @@ class App extends Component {
                     floatingLabelFixed
                   />
                   <br />
-                  <br />
-                  <Button
-                    variant="contained"
-                    onClick={e => this.onSubmit(e)}
-                    primary="true"
-                  >
-                    Calculate Sum
-                  </Button>
-                </form>
+                <Button
+                  variant="contained"
+                  onClick={async () => {
+                    const { data } = await client.query({
+                      query: CostQuery,
+                      variables: { company: this.state.company }
+                    });
+                    this.onCostFetched(data.costOfCompany);
+                  }}
+                  primary="true"
+                >
+                Calculate Cost
+                </Button>
+              </div>
+              )}
+              </ApolloConsumer>
               </Paper>
             </Grid>
           </Grid>
-          <Table employeesFromApp={employees} />
+          <br/>
+          <Table employeesFromApp={data.employees} />
           <br />
           <br />
         </div>
@@ -197,7 +193,16 @@ class App extends Component {
   }
 }
 
+const costQueryOptions = {
+  options: props => ({
+    variables: {
+      company: ""
+    },
+  }),
+}
+
 export default compose(
   graphql(CreateEmployeeMutation, { name: "createEmployee" }),
+  graphql(CostQuery, costQueryOptions, { name: "costOfCompany"}),
   graphql(EmployeesQuery)
 )(App);
