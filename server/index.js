@@ -50,7 +50,8 @@ const typeDefs = `
           company: String!, 
           salary: Int!) : Boolean
       removeEmployee(
-          employeeId: Int!) : Boolean          
+          employeeId: Int!) : Boolean
+      removeAllEmployees : Boolean
   }
 `;
 
@@ -100,6 +101,10 @@ const resolvers = {
         { employeeId }
     ) => {
         await Employee.deleteOne( {employeeId : employeeId});
+        return true;
+    },
+    removeAllEmployees: async (_) => {
+        await Employee.deleteMany();
         return true;
     }
   }

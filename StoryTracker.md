@@ -6,7 +6,6 @@ Simple app that calculates the cost of a company by the salaries of its employee
 
 ## Stories to be completed:
 
-- add logic to remove all empoyees on the backend only
 - more validation and error handling
 - add front end unit tests
 - add back end unit tests
@@ -32,3 +31,4 @@ Simple app that calculates the cost of a company by the salaries of its employee
 - beautify the front end and some form validation and some error handling
 - hosted to git hub pages client side only
 - get cost from backend instead of looping in front end
+- add logic to remove all empoyees on the backend only
