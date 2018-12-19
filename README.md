@@ -48,6 +48,20 @@ To do that:
 
 Note that you might need to install some dependencies first.
 
+Run the following commands in your terminal:
+install brew
+- /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+or if you have brew already
+- brew update
+install mongodb
+- brew install mongodb
+start mongodb service
+- brew services start mongodb
+
+Sources: 
+https://brew.sh/ 
+https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/index.html
+
 Use the graphql playground http://localhost:4000/ with the query reference below.
 Hosted on: https://habibmostafa.github.io/company-cost-calculator/ 
 
