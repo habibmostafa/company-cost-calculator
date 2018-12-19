@@ -44,19 +44,13 @@ This demo will only work if you have the server side hosted on localhost:4000.
 To do that:
 * clone this repo.
 * cd to server folder
-* node index.js
-
-Note that you might need to install some dependencies first.
-
-Run the following commands in your terminal:
-install brew
+* install brew, or if you have brew already, update it, install mongodb, then start mongodb service
+* Run the following commands in your terminal:
 - /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-or if you have brew already
 - brew update
-install mongodb
 - brew install mongodb
-start mongodb service
 - brew services start mongodb
+* node index.js
 
 Sources: 
 https://brew.sh/ 
