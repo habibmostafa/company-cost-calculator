@@ -44,9 +44,16 @@ This demo will only work if you have the server side hosted on localhost:4000.
 To do that:
 * clone this repo.
 * cd to server folder
+* To install brew, or if you have brew already, update it, install mongodb, then start mongodb service run the following commands in your terminal:
+   * /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+   * brew update
+   * brew install mongodb
+   * brew services start mongodb
 * node index.js
 
-Note that you might need to install some dependencies first.
+Sources: 
+https://brew.sh/ 
+https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/index.html
 
 Use the graphql playground http://localhost:4000/ with the query reference below.
 Hosted on: https://habibmostafa.github.io/company-cost-calculator/ 
