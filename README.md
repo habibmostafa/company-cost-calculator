@@ -47,8 +47,8 @@ To do that:
 * To install brew, or if you have brew already, update it, install mongodb, then start mongodb service run the following commands in your terminal:
    * /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
    * brew update
-   * brew install mongodb
-   * brew services start mongodb
+   * brew install mongodb-community@4.2 (Source: https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/)
+   * brew services start mongodb-community
 * node index.js
 
 Sources: 
